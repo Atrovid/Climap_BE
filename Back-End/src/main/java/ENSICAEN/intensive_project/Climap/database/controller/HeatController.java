@@ -24,7 +24,7 @@ public class HeatController {
     }
 
     @ResponseBody
-    @GetMapping("/celcius")
+    @GetMapping("/celsius")
     public List<Object> getCelsius() {
         return _heatRepository.getCelsiusDegree();
     }
