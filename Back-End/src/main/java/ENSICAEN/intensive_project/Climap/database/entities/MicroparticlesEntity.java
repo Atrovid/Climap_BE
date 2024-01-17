@@ -14,14 +14,14 @@ public class MicroparticlesEntity {
     private int idMicroparticles;
     @ManyToOne
     @JoinColumn(name = "`idCharacteristic`")
-    private CharacteristicEntity _characteristic;
+    private MeasurementEntity _characteristic;
     @Basic
     @Column(name = "`ParticlesPerCubicCentimeter`")
     private Double _particlesPerCubicCentimeter;
 
     protected MicroparticlesEntity() {}
 
-    public MicroparticlesEntity(Double particlesPerCubicCentimeter, CharacteristicEntity characteristic) {
+    public MicroparticlesEntity(Double particlesPerCubicCentimeter, MeasurementEntity characteristic) {
         _particlesPerCubicCentimeter = particlesPerCubicCentimeter;
         _characteristic = characteristic;
     }
@@ -36,11 +36,11 @@ public class MicroparticlesEntity {
     }
 
     @JsonIgnore
-    public CharacteristicEntity getCharacteristic() {
+    public MeasurementEntity getCharacteristic() {
         return _characteristic;
     }
 
-    public void setCharacteristic(CharacteristicEntity idCharacteristic) {
+    public void setCharacteristic(MeasurementEntity idCharacteristic) {
         _characteristic = idCharacteristic;
     }
 

@@ -1,7 +1,7 @@
 package ENSICAEN.intensive_project.Climap.database.constructor;
 
 import ENSICAEN.intensive_project.Climap.database.entities.BrightnessEntity;
-import ENSICAEN.intensive_project.Climap.database.entities.CharacteristicEntity;
+import ENSICAEN.intensive_project.Climap.database.entities.MeasurementEntity;
 import ENSICAEN.intensive_project.Climap.database.repository.BrightnessRepository;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import org.springframework.validation.annotation.Validated;
 public class BrightnessBuilder {
     private final BrightnessRepository _brightnessRepository;
     private BrightnessEntity _brightness;
-    private CharacteristicEntity _characteristic;
+    private MeasurementEntity _characteristic;
     private Double _lux = 0.0;
 
     public BrightnessBuilder(BrightnessRepository brightnessRepository) {
@@ -32,7 +32,7 @@ public class BrightnessBuilder {
         return this;
     }
 
-    public BrightnessBuilder setCharacteristic(CharacteristicEntity characteristic) {
+    public BrightnessBuilder setCharacteristic(MeasurementEntity characteristic) {
         _characteristic = characteristic;
         return this;
     }

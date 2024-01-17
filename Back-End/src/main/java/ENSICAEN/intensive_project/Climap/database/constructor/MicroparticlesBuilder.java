@@ -1,6 +1,6 @@
 package ENSICAEN.intensive_project.Climap.database.constructor;
 
-import ENSICAEN.intensive_project.Climap.database.entities.CharacteristicEntity;
+import ENSICAEN.intensive_project.Climap.database.entities.MeasurementEntity;
 import ENSICAEN.intensive_project.Climap.database.entities.MicroparticlesEntity;
 import ENSICAEN.intensive_project.Climap.database.repository.MicroparticlesRepository;
 import org.springframework.context.annotation.Scope;
@@ -13,7 +13,7 @@ import org.springframework.validation.annotation.Validated;
 public class MicroparticlesBuilder {
     private final MicroparticlesRepository _microparticlesRepository;
     private MicroparticlesEntity _microparticles;
-    private CharacteristicEntity _characteristic;
+    private MeasurementEntity _characteristic;
     private Double _particlesPerCubicCentimeter;
 
     public MicroparticlesBuilder(MicroparticlesRepository microparticlesRepository) {
@@ -32,7 +32,7 @@ public class MicroparticlesBuilder {
         return this;
     }
 
-    public MicroparticlesBuilder setCharacteristic(CharacteristicEntity characteristic) {
+    public MicroparticlesBuilder setCharacteristic(MeasurementEntity characteristic) {
         _characteristic = characteristic;
         return this;
     }

@@ -14,14 +14,14 @@ public class BrightnessEntity {
     private Integer _idBrightness;
     @ManyToOne
     @JoinColumn(name = "`idCharacteristic`")
-    private CharacteristicEntity _characteristic;
+    private MeasurementEntity _characteristic;
     @Basic
     @Column(name = "`Lux`")
     private double _lux;
 
     protected BrightnessEntity() {}
 
-    public BrightnessEntity(Double lux,  CharacteristicEntity characteristic) {
+    public BrightnessEntity(Double lux,  MeasurementEntity characteristic) {
         _lux = lux;
         _characteristic = characteristic;
     }
@@ -36,11 +36,11 @@ public class BrightnessEntity {
     }
 
     @JsonIgnore
-    public CharacteristicEntity getCharacteristic() {
+    public MeasurementEntity getCharacteristic() {
         return _characteristic;
     }
 
-    public void setCharacteristic(CharacteristicEntity characteristic) {
+    public void setCharacteristic(MeasurementEntity characteristic) {
         _characteristic = characteristic;
     }
 

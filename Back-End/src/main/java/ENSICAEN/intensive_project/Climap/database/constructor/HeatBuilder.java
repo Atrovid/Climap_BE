@@ -1,6 +1,6 @@
 package ENSICAEN.intensive_project.Climap.database.constructor;
 
-import ENSICAEN.intensive_project.Climap.database.entities.CharacteristicEntity;
+import ENSICAEN.intensive_project.Climap.database.entities.MeasurementEntity;
 import ENSICAEN.intensive_project.Climap.database.entities.HeatEntity;
 import ENSICAEN.intensive_project.Climap.database.repository.HeatRepository;
 import org.springframework.context.annotation.Scope;
@@ -13,7 +13,7 @@ import org.springframework.validation.annotation.Validated;
 public class HeatBuilder {
     private final HeatRepository _heatRepository;
     private HeatEntity _heat;
-    private CharacteristicEntity _characteristic;
+    private MeasurementEntity _characteristic;
     private Double _celsiusDegree = 0.0;
 
 
@@ -33,7 +33,7 @@ public class HeatBuilder {
         return this;
     }
 
-    public HeatBuilder setCharacteristic(CharacteristicEntity characteristic) {
+    public HeatBuilder setCharacteristic(MeasurementEntity characteristic) {
         _characteristic = characteristic;
         return this;
     }

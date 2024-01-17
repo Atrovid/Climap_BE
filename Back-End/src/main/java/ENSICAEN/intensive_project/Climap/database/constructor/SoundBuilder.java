@@ -1,6 +1,6 @@
 package ENSICAEN.intensive_project.Climap.database.constructor;
 
-import ENSICAEN.intensive_project.Climap.database.entities.CharacteristicEntity;
+import ENSICAEN.intensive_project.Climap.database.entities.MeasurementEntity;
 import ENSICAEN.intensive_project.Climap.database.entities.SoundEntity;
 import ENSICAEN.intensive_project.Climap.database.repository.SoundRepository;
 import org.springframework.context.annotation.Scope;
@@ -13,7 +13,7 @@ import org.springframework.validation.annotation.Validated;
 public class SoundBuilder {
     private final SoundRepository _soundRepository;
     private SoundEntity _sound;
-    private CharacteristicEntity _characteristic;
+    private MeasurementEntity _characteristic;
     private Double _decibel;
 
     public SoundBuilder(SoundRepository soundRepository) {
@@ -32,7 +32,7 @@ public class SoundBuilder {
         return this;
     }
 
-    public SoundBuilder setCharacteristic(CharacteristicEntity characteristic) {
+    public SoundBuilder setCharacteristic(MeasurementEntity characteristic) {
         _characteristic = characteristic;
         return this;
     }
