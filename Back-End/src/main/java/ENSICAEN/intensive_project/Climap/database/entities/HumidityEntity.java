@@ -16,13 +16,13 @@ public class HumidityEntity {
     @JoinColumn(name = "`idCharacteristic`")
     private CharacteristicEntity _characteristic;
     @Basic
-    @Column(name = "`ParticlesPerCubicCentimeter`")
-    private double _particlesPerCubicCentimeter;
+    @Column(name = "`RelativeHumidityPercentage`")
+    private double _relativeHumidityPercentage;
 
     protected HumidityEntity() { }
 
     public HumidityEntity(Double particlesPerCubicCentimeter, CharacteristicEntity characteristic) {
-        _particlesPerCubicCentimeter =  particlesPerCubicCentimeter;
+        _relativeHumidityPercentage =  particlesPerCubicCentimeter;
         _characteristic = characteristic;
     }
 
@@ -44,12 +44,12 @@ public class HumidityEntity {
         _characteristic = idSensor;
     }
 
-    public double getParticlesPerCubicCentimeter() {
-        return _particlesPerCubicCentimeter;
+    public double getRelativeHumidityPercentage() {
+        return _relativeHumidityPercentage;
     }
 
-    public void setParticlesPerCubicCentimeter(double particlesPerCubicCentimeter) {
-        _particlesPerCubicCentimeter = particlesPerCubicCentimeter;
+    public void setRelativeHumidityPercentage(double relativeHumidityPercentage) {
+        _relativeHumidityPercentage = relativeHumidityPercentage;
     }
 
     @Override
@@ -61,6 +61,6 @@ public class HumidityEntity {
 
         if (!Objects.equals(_idHumidity, that._idHumidity)) return false;
         if (_characteristic != that._characteristic) return false;
-        return Objects.equals(_particlesPerCubicCentimeter, that._particlesPerCubicCentimeter);
+        return Objects.equals(_relativeHumidityPercentage, that._relativeHumidityPercentage);
     }
 }

@@ -2,7 +2,6 @@ package ENSICAEN.intensive_project.Climap.database.controller;
 
 import ENSICAEN.intensive_project.Climap.database.entities.CharacteristicEntity;
 import ENSICAEN.intensive_project.Climap.database.repository.CharacteristicRepository;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,8 +27,13 @@ public class SensorController {
     @ResponseBody
     @GetMapping("/position")
     public List<Object> getPosition() {
-        List<Object> charac = _characteristicRepository.findSensorPosition();
-        return charac;
+        return _characteristicRepository.getSensorPosition();
+    }
+
+    @ResponseBody
+    @GetMapping("/date")
+    public List<Object> getDate() {
+        return _characteristicRepository.getDay();
     }
 }
 
