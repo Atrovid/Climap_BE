@@ -124,6 +124,5 @@ public class DataInitialisation {
                     .setDecibel(generateRandom(LOWER_BOUND, UPPER_BOUND))
                     .build().save();
         }
-
     }
 }
