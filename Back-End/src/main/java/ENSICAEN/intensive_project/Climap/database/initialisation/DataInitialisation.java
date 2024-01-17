@@ -67,7 +67,7 @@ public class DataInitialisation {
         _jsonParser = jsonParser;
     }
 
-    //@TODO Remove this class in prod : we want the history of the database
+    // @TODO Remove this class in prod : we want the history of the database
     private void reset() {
         _microparticlesRepository.deleteAll();
         _brightnessRepository.deleteAll();
@@ -159,6 +159,5 @@ public class DataInitialisation {
                     .build().save();
 
         }
-
     }
 }
