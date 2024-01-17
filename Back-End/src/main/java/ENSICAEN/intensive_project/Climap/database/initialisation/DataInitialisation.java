@@ -1,18 +1,16 @@
 package ENSICAEN.intensive_project.Climap.database.initialisation;
 
-import ENSICAEN.intensive_project.Climap.database.constructor.*;
-import ENSICAEN.intensive_project.Climap.database.entities.*;
-import ENSICAEN.intensive_project.Climap.database.json.JsonParser;
-import ENSICAEN.intensive_project.Climap.database.repository.*;
+import java.util.Random;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.Random;
+import ENSICAEN.intensive_project.Climap.database.constructor.*;
+import ENSICAEN.intensive_project.Climap.database.entities.MeasurementEntity;
+import ENSICAEN.intensive_project.Climap.database.repository.*;
 
 @Configuration
 public class DataInitialisation {
-    private final String _filePath = "";
-    private final JsonParser _jsonParser;
     private final static double LOWER_BOUND_LONGITUDE = -0.265388;
     private final static double UPPER_BOUND_LONGITUDE = -0.43499;
     private final static double LOWER_BOUND_LATITUDE = 49.128039;
@@ -46,9 +44,7 @@ public class DataInitialisation {
             HeatBuilder heatBuilder,
             HumidityBuilder humidityBuilder,
             SoundBuilder soundBuilder,
-            MicroparticlesBuilder microparticlesBuilder,
-            JsonParser jsonParser
-    ) {
+            MicroparticlesBuilder microparticlesBuilder) {
         _characteristicRepository = characteristicRepository;
         _brightnessRepository = brightnessRepository;
         _heatRepository = heatRepository;
@@ -61,10 +57,9 @@ public class DataInitialisation {
         _humidityBuilder = humidityBuilder;
         _soundBuilder = soundBuilder;
         _microparticlesBuilder = microparticlesBuilder;
-        _jsonParser = jsonParser;
     }
 
-    //@TODO Remove this class in prod : we want the history of the database
+    // @TODO Remove this class in prod : we want the history of the database
     private void reset() {
         _microparticlesRepository.deleteAll();
         _brightnessRepository.deleteAll();
@@ -101,9 +96,9 @@ public class DataInitialisation {
     @Bean
     public void init() {
         reset();
-        for(int i = 0; i < 25; i++) {
+        for (int i = 0; i < 25; i++) {
             MeasurementEntity charac = _measurementBuilder
-                    .setSerialNumber(generateRandomString(3,7))
+                    .setSerialNumber(generateRandomString(3, 7))
                     .setLatitude(generateRandom(LOWER_BOUND_LATITUDE, UPPER_BOUND_LATITUDE))
                     .setLongitude(generateRandom(LOWER_BOUND_LONGITUDE, UPPER_BOUND_LONGITUDE))
                     .build().save();
@@ -114,7 +109,7 @@ public class DataInitialisation {
             _heatBuilder.setCharacteristic(charac)
                     .setCelsiusDegree(generateRandom(LOWER_BOUND_TEMPERATURE, UPPER_BOUND_TEMPERATURE))
                     .build().save();
-             _humidityBuilder.setCharacteristic(charac)
+            _humidityBuilder.setCharacteristic(charac)
                     .setRelativeHumidityPercentage(generateRandom(LOWER_BOUND, UPPER_BOUND))
                     .build().save();
             _microparticlesBuilder.setCharacteristic(charac)
