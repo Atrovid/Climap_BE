@@ -10,7 +10,7 @@ CREATE TABLE "Sensor"."Characteristic" (
 CREATE TABLE "Sensor"."Humidity" (
                                           "idHumidity" SERIAL PRIMARY KEY,
                                           "idCharacteristic" int NOT NULL,
-                                          "ParticlesPerCubicCentimeter" decimal NOT NULL
+                                          "RelativeHumidityPercentage" decimal NOT NULL
 );
 
 CREATE TABLE "Sensor"."Sound" (
