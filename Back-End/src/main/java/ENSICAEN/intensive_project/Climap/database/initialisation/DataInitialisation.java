@@ -14,7 +14,7 @@ import java.util.Random;
 
 @Configuration
 public class DataInitialisation {
-    private final String _filePath = "D:\\3A\\ProjetIntensif\\Climap\\Back-End\\src\\main\\java\\ENSICAEN\\intensive_project\\Climap\\Device.json";
+    private final String _filePath = "src/main/java/ENSICAEN/intensive_project/Climap/Device.json";
     private final JsonParser _jsonParser;
     private final static double LOWER_BOUND_LONGITUDE = -0.265388;
     private final static double UPPER_BOUND_LONGITUDE = -0.43499;
