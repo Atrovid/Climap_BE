@@ -8,13 +8,17 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
-@Entity(name = "Characteristic")
-@Table(name = "`Characteristic`", schema = "`Sensor`")
-public class CharacteristicEntity {
+@Entity(name = "Measurement")
+@Table(name = "`Measurement`", schema = "`Sensor`")
+public class MeasurementEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "`idCharacteristic`")
+    @Column(name = "`idMeasurement`")
     private Integer _idCharacteristic;
+    @Basic
+    @Column(name = "`SerialNumber`")
+    private String _serialNumber;
+
     @Basic
     @Column(name = "`Latitude`")
     private double _latitude;
@@ -35,12 +39,13 @@ public class CharacteristicEntity {
     @OneToMany(mappedBy = "_characteristic")
     private List<SoundEntity> _sound;
 
-    protected CharacteristicEntity() {}
+    protected MeasurementEntity() {}
 
-    public CharacteristicEntity(double latitude, double longitude) {
+    public MeasurementEntity(double latitude, double longitude, String serialNumber) {
         _dateDataCapture = generateRandomDate();
         _latitude = latitude;
         _longitude = longitude;
+        _serialNumber = serialNumber;
     }
 
     private static Timestamp generateRandomDate() {
@@ -128,12 +133,19 @@ public class CharacteristicEntity {
         _microparticle = _microparticle;
     }
 
+    public String getSerialNumber() {
+        return _serialNumber;
+    }
+
+    public void setSerialNumber(String serialNumber) {
+        _serialNumber = serialNumber;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        CharacteristicEntity that = (CharacteristicEntity) o;
+        MeasurementEntity that = (MeasurementEntity) o;
 
         if (!Objects.equals(_idCharacteristic, that._idCharacteristic)) return false;
         if (!Objects.equals(_latitude, that._latitude)) return false;

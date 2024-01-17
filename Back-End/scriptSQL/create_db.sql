@@ -1,7 +1,8 @@
 CREATE SCHEMA "Sensor";
 
-CREATE TABLE "Sensor"."Characteristic" (
-                                                "idCharacteristic" SERIAL PRIMARY KEY,
+CREATE TABLE "Sensor"."Measurement" (
+                                                "idMeasurement" SERIAL PRIMARY KEY,
+                                                "SerialNumber" varchar NOT NULL,
                                                 "Latitude" decimal NOT NULL,
                                                 "Longitude" decimal NOT NULL,
                                                 "DateDataCapture" timestamp NOT NULL
@@ -38,8 +39,8 @@ CREATE TABLE "Sensor"."Microparticles" (
     "ParticlesPerCubicCentimeter" decimal NOT NULL
 );
 
-ALTER TABLE "Sensor"."Humidity" ADD FOREIGN KEY ("idCharacteristic") REFERENCES "Sensor"."Characteristic"("idCharacteristic");
-ALTER TABLE "Sensor"."Sound" ADD FOREIGN KEY ("idCharacteristic") REFERENCES "Sensor"."Characteristic"("idCharacteristic");
-ALTER TABLE "Sensor"."Heat" ADD FOREIGN KEY ("idCharacteristic") REFERENCES "Sensor"."Characteristic"("idCharacteristic");
-ALTER TABLE "Sensor"."Brightness" ADD FOREIGN KEY ("idCharacteristic") REFERENCES "Sensor"."Characteristic"("idCharacteristic");
-ALTER TABLE "Sensor"."Microparticles" ADD FOREIGN KEY ("idCharacteristic") REFERENCES "Sensor"."Characteristic"("idCharacteristic");
+ALTER TABLE "Sensor"."Humidity" ADD FOREIGN KEY ("idCharacteristic") REFERENCES "Sensor"."Measurement"("idMeasurement");
+ALTER TABLE "Sensor"."Sound" ADD FOREIGN KEY ("idCharacteristic") REFERENCES "Sensor"."Measurement"("idMeasurement");
+ALTER TABLE "Sensor"."Heat" ADD FOREIGN KEY ("idCharacteristic") REFERENCES "Sensor"."Measurement"("idMeasurement");
+ALTER TABLE "Sensor"."Brightness" ADD FOREIGN KEY ("idCharacteristic") REFERENCES "Sensor"."Measurement"("idMeasurement");
+ALTER TABLE "Sensor"."Microparticles" ADD FOREIGN KEY ("idCharacteristic") REFERENCES "Sensor"."Measurement"("idMeasurement");

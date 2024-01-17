@@ -1,7 +1,7 @@
 package ENSICAEN.intensive_project.Climap.database.controller;
 
-import ENSICAEN.intensive_project.Climap.database.entities.CharacteristicEntity;
-import ENSICAEN.intensive_project.Climap.database.repository.CharacteristicRepository;
+import ENSICAEN.intensive_project.Climap.database.entities.MeasurementEntity;
+import ENSICAEN.intensive_project.Climap.database.repository.MeasurementRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -11,16 +11,16 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/sensor")
-public class SensorController {
+public class MeasurementController {
 
-    private final CharacteristicRepository _characteristicRepository;
+    private final MeasurementRepository _characteristicRepository;
 
-    public SensorController(CharacteristicRepository characteristicRepository) {
+    public MeasurementController(MeasurementRepository characteristicRepository) {
         _characteristicRepository = characteristicRepository;
     }
 
     @GetMapping
-    public List<CharacteristicEntity> getAllSensor() {
+    public List<MeasurementEntity> getAllSensor() {
         return _characteristicRepository.findAll();
     }
 

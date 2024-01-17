@@ -2,6 +2,7 @@ package ENSICAEN.intensive_project.Climap.database.initialisation;
 
 import ENSICAEN.intensive_project.Climap.database.constructor.*;
 import ENSICAEN.intensive_project.Climap.database.entities.*;
+import ENSICAEN.intensive_project.Climap.database.json.JsonParser;
 import ENSICAEN.intensive_project.Climap.database.repository.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,40 +11,43 @@ import java.util.Random;
 
 @Configuration
 public class DataInitialisation {
+    private final String _filePath = "";
+    private final JsonParser _jsonParser;
     private final static double LOWER_BOUND_LONGITUDE = -0.265388;
     private final static double UPPER_BOUND_LONGITUDE = -0.43499;
     private final static double LOWER_BOUND_LATITUDE = 49.128039;
     private final static double UPPER_BOUND_LATITUDE = 49.238;
     private final static double LOWER_BOUND_TEMPERATURE = 10.0;
-    private final static double UPPER_BOUND_TEMPERATURE = 13.0;
+    private final static double UPPER_BOUND_TEMPERATURE = 18.0;
     private final static double LOWER_BOUND = 0.0;
     private final static double UPPER_BOUND = 100.0;
-    private final CharacteristicRepository _characteristicRepository;
+    private final MeasurementRepository _characteristicRepository;
     private final BrightnessRepository _brightnessRepository;
     private final HeatRepository _heatRepository;
     private final HumidityRepository _humidityRepository;
     private final MicroparticlesRepository _microparticlesRepository;
     private final SoundRepository _soundRepository;
     private final BrightnessBuilder _brightnessBuilder;
-    private final CharacteristicBuilder _characteristicBuilder;
+    private final MeasurementBuilder _measurementBuilder;
     private final HeatBuilder _heatBuilder;
     private final HumidityBuilder _humidityBuilder;
     private final SoundBuilder _soundBuilder;
     private final MicroparticlesBuilder _microparticlesBuilder;
 
     public DataInitialisation(
-            CharacteristicRepository characteristicRepository,
+            MeasurementRepository characteristicRepository,
             BrightnessRepository brightnessRepository,
             HeatRepository heatRepository,
             HumidityRepository humidityRepository,
             MicroparticlesRepository microparticlesRepository,
             SoundRepository soundRepository,
             BrightnessBuilder brightnessBuilder,
-            CharacteristicBuilder characteristicBuilder,
+            MeasurementBuilder characteristicBuilder,
             HeatBuilder heatBuilder,
             HumidityBuilder humidityBuilder,
             SoundBuilder soundBuilder,
-            MicroparticlesBuilder microparticlesBuilder
+            MicroparticlesBuilder microparticlesBuilder,
+            JsonParser jsonParser
     ) {
         _characteristicRepository = characteristicRepository;
         _brightnessRepository = brightnessRepository;
@@ -52,13 +56,15 @@ public class DataInitialisation {
         _microparticlesRepository = microparticlesRepository;
         _soundRepository = soundRepository;
         _brightnessBuilder = brightnessBuilder;
-        _characteristicBuilder = characteristicBuilder;
+        _measurementBuilder = characteristicBuilder;
         _heatBuilder = heatBuilder;
         _humidityBuilder = humidityBuilder;
         _soundBuilder = soundBuilder;
         _microparticlesBuilder = microparticlesBuilder;
+        _jsonParser = jsonParser;
     }
 
+    //@TODO Remove this class in prod : we want the history of the database
     private void reset() {
         _microparticlesRepository.deleteAll();
         _brightnessRepository.deleteAll();
@@ -73,11 +79,31 @@ public class DataInitialisation {
         return lowerBound + (upperBound - lowerBound) * random.nextDouble();
     }
 
+    private static String generateRandomString(int lettersCount, int numbersCount) {
+        StringBuilder randomString = new StringBuilder();
+        Random random = new Random();
+
+        // Générer les lettres
+        for (int i = 0; i < lettersCount; i++) {
+            char randomLetter = (char) ('A' + random.nextInt(26));
+            randomString.append(randomLetter);
+        }
+
+        // Générer les chiffres
+        for (int i = 0; i < numbersCount; i++) {
+            int randomNumber = random.nextInt(10);
+            randomString.append(randomNumber);
+        }
+
+        return randomString.toString();
+    }
+
     @Bean
     public void init() {
         reset();
         for(int i = 0; i < 25; i++) {
-            CharacteristicEntity charac = _characteristicBuilder
+            MeasurementEntity charac = _measurementBuilder
+                    .setSerialNumber(generateRandomString(3,7))
                     .setLatitude(generateRandom(LOWER_BOUND_LATITUDE, UPPER_BOUND_LATITUDE))
                     .setLongitude(generateRandom(LOWER_BOUND_LONGITUDE, UPPER_BOUND_LONGITUDE))
                     .build().save();

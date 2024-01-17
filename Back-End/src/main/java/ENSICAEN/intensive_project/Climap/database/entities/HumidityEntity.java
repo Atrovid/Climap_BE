@@ -14,14 +14,14 @@ public class HumidityEntity {
     private Integer _idHumidity;
     @ManyToOne
     @JoinColumn(name = "`idCharacteristic`")
-    private CharacteristicEntity _characteristic;
+    private MeasurementEntity _characteristic;
     @Basic
     @Column(name = "`RelativeHumidityPercentage`")
     private double _relativeHumidityPercentage;
 
     protected HumidityEntity() { }
 
-    public HumidityEntity(Double particlesPerCubicCentimeter, CharacteristicEntity characteristic) {
+    public HumidityEntity(Double particlesPerCubicCentimeter, MeasurementEntity characteristic) {
         _relativeHumidityPercentage =  particlesPerCubicCentimeter;
         _characteristic = characteristic;
     }
@@ -36,11 +36,11 @@ public class HumidityEntity {
     }
 
     @JsonIgnore
-    public CharacteristicEntity getCharacteristic() {
+    public MeasurementEntity getCharacteristic() {
         return _characteristic;
     }
 
-    public void setCharacteristic(CharacteristicEntity idSensor) {
+    public void setCharacteristic(MeasurementEntity idSensor) {
         _characteristic = idSensor;
     }
 
