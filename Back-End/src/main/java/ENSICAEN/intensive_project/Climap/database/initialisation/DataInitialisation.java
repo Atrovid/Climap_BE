@@ -10,6 +10,14 @@ import java.util.Random;
 
 @Configuration
 public class DataInitialisation {
+    private final static double LOWER_BOUND_LONGITUDE = -0.265388;
+    private final static double UPPER_BOUND_LONGITUDE = -0.43499;
+    private final static double LOWER_BOUND_LATITUDE = 49.128039;
+    private final static double UPPER_BOUND_LATITUDE = 49.238;
+    private final static double LOWER_BOUND_TEMPERATURE = 10.0;
+    private final static double UPPER_BOUND_TEMPERATURE = 13.0;
+    private final static double LOWER_BOUND = 0.0;
+    private final static double UPPER_BOUND = 100.0;
     private final CharacteristicRepository _characteristicRepository;
     private final BrightnessRepository _brightnessRepository;
     private final HeatRepository _heatRepository;
@@ -60,32 +68,35 @@ public class DataInitialisation {
         _characteristicRepository.deleteAll();
     }
 
-    private static double generateRandomDouble() {
+    private static double generateRandom(double lowerBound, double upperBound) {
         Random random = new Random();
-        // Générer un nombre aléatoire de type double entre 0.0 (inclus) et 1.0 (exclus)
-        double randomValue = random.nextDouble();
-
-        // Par exemple, pour obtenir un double entre 0.0 (inclus) et 100.0 (exclus)
-        return randomValue * 100.0;
+        return lowerBound + (upperBound - lowerBound) * random.nextDouble();
     }
 
     @Bean
     public void init() {
         reset();
-        for(int i = 0; i < 100; i++) {
-            Double random1 = generateRandomDouble();
-            Double random2 = generateRandomDouble();
-            Double random3 = generateRandomDouble();
-            Double random4 = generateRandomDouble();
-            Double random5 = generateRandomDouble();
-            Double random6 = generateRandomDouble();
-            Double random7 = generateRandomDouble();
-            CharacteristicEntity charac = _characteristicBuilder.setLatitude(random1).setLongitude(random2).build().save();
-            BrightnessEntity bright = _brightnessBuilder.setCharacteristic(charac).setLux(random3).build().save();
-            HeatEntity heat = _heatBuilder.setCharacteristic(charac).setCelsiusDegree(random4).build().save();
-            HumidityEntity humidity = _humidityBuilder.setCharacteristic(charac).setRelativeHumidityPercentage(random5).build().save();
-            MicroparticlesEntity microparticles = _microparticlesBuilder.setCharacteristic(charac).setParticlesPerCubicCentimeter(random6).build().save();
-            SoundEntity sound = _soundBuilder.setCharacteristic(charac).setDecibel(random7).build().save();
+        for(int i = 0; i < 25; i++) {
+            CharacteristicEntity charac = _characteristicBuilder
+                    .setLatitude(generateRandom(LOWER_BOUND_LATITUDE, UPPER_BOUND_LATITUDE))
+                    .setLongitude(generateRandom(LOWER_BOUND_LONGITUDE, UPPER_BOUND_LONGITUDE))
+                    .build().save();
+
+            _brightnessBuilder.setCharacteristic(charac)
+                    .setLux(generateRandom(LOWER_BOUND, UPPER_BOUND))
+                    .build().save();
+            _heatBuilder.setCharacteristic(charac)
+                    .setCelsiusDegree(generateRandom(LOWER_BOUND_TEMPERATURE, UPPER_BOUND_TEMPERATURE))
+                    .build().save();
+             _humidityBuilder.setCharacteristic(charac)
+                    .setRelativeHumidityPercentage(generateRandom(LOWER_BOUND, UPPER_BOUND))
+                    .build().save();
+            _microparticlesBuilder.setCharacteristic(charac)
+                    .setParticlesPerCubicCentimeter(generateRandom(LOWER_BOUND, UPPER_BOUND))
+                    .build().save();
+            _soundBuilder.setCharacteristic(charac)
+                    .setDecibel(generateRandom(LOWER_BOUND, UPPER_BOUND))
+                    .build().save();
         }
 
     }
