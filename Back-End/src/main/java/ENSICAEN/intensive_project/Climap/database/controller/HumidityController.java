@@ -26,7 +26,6 @@ public class HumidityController {
     @ResponseBody
     @GetMapping("/relativeHumidityPercentage")
     public List<Object> getRelativeHumidityPercentage() {
-        List<Object> relativeHumidityPercentage = _humidityRepository.getRelativeHumidityPercentage();
-        return relativeHumidityPercentage;
+        return _humidityRepository.getRelativeHumidityPercentage();
     }
 }

@@ -26,7 +26,6 @@ public class SoundController {
     @ResponseBody
     @GetMapping("/decibel")
     public List<Object> getDecibel() {
-        List<Object> decibel = _soundRepository.getDecibel();
-        return decibel;
+        return _soundRepository.getDecibel();
     }
 }

@@ -27,15 +27,13 @@ public class SensorController {
     @ResponseBody
     @GetMapping("/position")
     public List<Object> getPosition() {
-        List<Object> charac = _characteristicRepository.getSensorPosition();
-        return charac;
+        return _characteristicRepository.getSensorPosition();
     }
 
     @ResponseBody
     @GetMapping("/date")
     public List<Object> getDate() {
-        List<Object> date = _characteristicRepository.getDay();
-        return date;
+        return _characteristicRepository.getDay();
     }
 }
 

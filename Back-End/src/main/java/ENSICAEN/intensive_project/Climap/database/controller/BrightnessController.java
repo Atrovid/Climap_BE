@@ -24,7 +24,6 @@ public class BrightnessController {
 
     @GetMapping("/lux")
     public List<Object> getLux() {
-        List<Object> lux = _brightnessRepository.getLux();
-        return lux;
+        return _brightnessRepository.getLux();
     }
 }

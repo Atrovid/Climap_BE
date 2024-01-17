@@ -26,7 +26,6 @@ public class MicroparticlesController {
     @ResponseBody
     @GetMapping("/particlesPerCubicCentimeter")
     public List<Object> getParticlesPerCubicCentimeter() {
-        List<Object> particlesPerCubicCentimeter= _microparticleRepository.getParticlesPerCubicCentimeter();
-        return particlesPerCubicCentimeter;
+        return _microparticleRepository.getParticlesPerCubicCentimeter();
     }
 }
