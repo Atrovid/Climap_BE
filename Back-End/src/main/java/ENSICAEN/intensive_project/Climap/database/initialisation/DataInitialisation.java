@@ -2,16 +2,19 @@ package ENSICAEN.intensive_project.Climap.database.initialisation;
 
 import ENSICAEN.intensive_project.Climap.database.constructor.*;
 import ENSICAEN.intensive_project.Climap.database.entities.*;
+import ENSICAEN.intensive_project.Climap.database.json.DeviceResponseJson;
 import ENSICAEN.intensive_project.Climap.database.json.JsonParser;
 import ENSICAEN.intensive_project.Climap.database.repository.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.Random;
 
 @Configuration
 public class DataInitialisation {
-    private final String _filePath = "";
+    private final String _filePath = "D:\\3A\\ProjetIntensif\\Climap\\Back-End\\src\\main\\java\\ENSICAEN\\intensive_project\\Climap\\Device.json";
     private final JsonParser _jsonParser;
     private final static double LOWER_BOUND_LONGITUDE = -0.265388;
     private final static double UPPER_BOUND_LONGITUDE = -0.43499;
@@ -99,9 +102,9 @@ public class DataInitialisation {
     }
 
     @Bean
-    public void init() {
+    public void init() throws IOException {
         reset();
-        for(int i = 0; i < 25; i++) {
+        /*for(int i = 0; i < 25; i++) {
             MeasurementEntity charac = _measurementBuilder
                     .setSerialNumber(generateRandomString(3,7))
                     .setLatitude(generateRandom(LOWER_BOUND_LATITUDE, UPPER_BOUND_LATITUDE))
@@ -123,6 +126,39 @@ public class DataInitialisation {
             _soundBuilder.setCharacteristic(charac)
                     .setDecibel(generateRandom(LOWER_BOUND, UPPER_BOUND))
                     .build().save();
+        }*/
+        List<DeviceResponseJson> deviceResponseJsonList = _jsonParser.parseJsonFile(_filePath);
+        for (DeviceResponseJson deviceResponse : deviceResponseJsonList) {
+            MeasurementEntity charac = _measurementBuilder
+                    .setSerialNumber(generateRandomString(3,7))
+                    .setLatitude(deviceResponse.get_latitude())
+                    .setLongitude(deviceResponse.get_longitude())
+                    .build()
+                    .save();
+
+            _brightnessBuilder
+                    .setCharacteristic(charac)
+                    .setLux(deviceResponse.get_lux())
+                    .build()
+                    .save();
+            _heatBuilder
+                    .setCharacteristic(charac)
+                    .setCelsiusDegree(deviceResponse.get_celsiusDegree())
+                    .build().save();
+            _humidityBuilder
+                    .setCharacteristic(charac)
+                    .setRelativeHumidityPercentage(deviceResponse.get_relativeHumidityPercentage())
+                    .build().save();
+            _microparticlesBuilder
+                    .setCharacteristic(charac)
+                    .setParticlesPerCubicCentimeter(deviceResponse.get_particlesPerCubicCentimeter())
+                    .build().save();
+            _soundBuilder
+                    .setCharacteristic(charac)
+                    .setDecibel(deviceResponse.get_decibel())
+                    .build().save();
+
         }
+
     }
 }

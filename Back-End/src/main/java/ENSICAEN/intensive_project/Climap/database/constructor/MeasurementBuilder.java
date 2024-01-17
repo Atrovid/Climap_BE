@@ -6,15 +6,18 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import static ENSICAEN.intensive_project.Climap.AssignValues.assignIfNotNull;
+
 @Service
 @Scope("prototype")
 @Validated
 public class MeasurementBuilder {
     private final MeasurementRepository _characteristicRepository;
-    private MeasurementEntity _characteristic;
+    private MeasurementEntity _measurement;
     private Double _latitude;
     private Double _longitude;
     private String _serialNumber;
+    private Integer _id;
 
     public MeasurementBuilder(MeasurementRepository characteristicRepository) {
         _characteristicRepository = characteristicRepository;
@@ -22,10 +25,19 @@ public class MeasurementBuilder {
     }
 
     private void resetValues() {
-        _characteristic = null;
+        _measurement = null;
         _latitude = null;
         _longitude = null;
         _serialNumber = null;
+        _id = null;
+    }
+
+    public MeasurementBuilder setFromMeasurement(MeasurementEntity measurement) {
+        assignIfNotNull(measurement.getIdMeasurement(), value -> _id = (Integer) value);
+        _latitude = measurement.getLatitude();
+        _longitude = measurement.getLongitude();
+        _serialNumber = measurement.getSerialNumber();
+        return this;
     }
 
     public MeasurementBuilder setLatitude(Double latitude) {
@@ -44,12 +56,12 @@ public class MeasurementBuilder {
     }
 
     public MeasurementBuilder build() {
-        _characteristic = new MeasurementEntity(_latitude, _longitude, _serialNumber);
+        _measurement = new MeasurementEntity(_latitude, _longitude, _serialNumber);
         return this;
     }
 
     public MeasurementEntity save() {
-        MeasurementEntity save = _characteristicRepository.save(_characteristic);
+        MeasurementEntity save = _characteristicRepository.save(_measurement);
         resetValues();
         return save;
     }

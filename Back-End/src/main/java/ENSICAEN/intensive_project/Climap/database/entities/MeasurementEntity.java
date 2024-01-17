@@ -14,7 +14,7 @@ public class MeasurementEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "`idMeasurement`")
-    private Integer _idCharacteristic;
+    private Integer _idMeasurement;
     @Basic
     @Column(name = "`SerialNumber`")
     private String _serialNumber;
@@ -61,12 +61,12 @@ public class MeasurementEntity {
         return new Timestamp(calendar.getTimeInMillis());
     }
 
-    public int getIdCharacteristic() {
-        return _idCharacteristic;
+    public int getIdMeasurement() {
+        return _idMeasurement;
     }
 
     public void setIdCharacteristic(int idCharacteristic) {
-        _idCharacteristic = idCharacteristic;
+        _idMeasurement = idCharacteristic;
     }
 
     public double getLatitude() {
@@ -147,7 +147,7 @@ public class MeasurementEntity {
 
         MeasurementEntity that = (MeasurementEntity) o;
 
-        if (!Objects.equals(_idCharacteristic, that._idCharacteristic)) return false;
+        if (!Objects.equals(_idMeasurement, that._idMeasurement)) return false;
         if (!Objects.equals(_latitude, that._latitude)) return false;
         if (!Objects.equals(_longitude, that._longitude)) return false;
         return Objects.equals(_dateDataCapture, that._dateDataCapture);
