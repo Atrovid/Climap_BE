@@ -28,15 +28,15 @@ public class MeasurementEntity {
     @Basic
     @Column(name = "`DateDataCapture`")
     private Timestamp _dateDataCapture;
-    @OneToMany(mappedBy = "_characteristic")
+    @OneToMany(mappedBy = "_measurement")
     private List<BrightnessEntity> _brightness;
-    @OneToMany(mappedBy = "_characteristic")
+    @OneToMany(mappedBy = "_measurement")
     private List<HeatEntity> _heat;
-    @OneToMany(mappedBy = "_characteristic")
+    @OneToMany(mappedBy = "_measurement")
     private List<HumidityEntity> _humidity;
-    @OneToMany(mappedBy = "_characteristic")
+    @OneToMany(mappedBy = "_measurement")
     private List<MicroparticlesEntity> _microparticle;
-    @OneToMany(mappedBy = "_characteristic")
+    @OneToMany(mappedBy = "_measurement")
     private List<SoundEntity> _sound;
 
     protected MeasurementEntity() {}

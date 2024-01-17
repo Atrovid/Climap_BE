@@ -13,8 +13,8 @@ public class BrightnessEntity {
     @Column(name = "`idBrightness`")
     private Integer _idBrightness;
     @ManyToOne
-    @JoinColumn(name = "`idCharacteristic`")
-    private MeasurementEntity _characteristic;
+    @JoinColumn(name = "`idMeasurement`")
+    private MeasurementEntity _measurement;
     @Basic
     @Column(name = "`Lux`")
     private double _lux;
@@ -23,7 +23,7 @@ public class BrightnessEntity {
 
     public BrightnessEntity(Double lux,  MeasurementEntity characteristic) {
         _lux = lux;
-        _characteristic = characteristic;
+        _measurement = characteristic;
     }
 
     @JsonIgnore
@@ -37,11 +37,11 @@ public class BrightnessEntity {
 
     @JsonIgnore
     public MeasurementEntity getCharacteristic() {
-        return _characteristic;
+        return _measurement;
     }
 
     public void setCharacteristic(MeasurementEntity characteristic) {
-        _characteristic = characteristic;
+        _measurement = characteristic;
     }
 
     public double getLux() {
@@ -60,7 +60,7 @@ public class BrightnessEntity {
         BrightnessEntity that = (BrightnessEntity) o;
 
         if (_idBrightness != that._idBrightness) return false;
-        if (_characteristic != that._characteristic) return false;
+        if (_measurement != that._measurement) return false;
         return Objects.equals(_lux, that._lux);
     }
 

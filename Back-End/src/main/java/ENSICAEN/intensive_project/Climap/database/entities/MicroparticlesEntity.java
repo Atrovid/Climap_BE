@@ -13,8 +13,8 @@ public class MicroparticlesEntity {
     @Column(name = "`idMicroparticles`")
     private int idMicroparticles;
     @ManyToOne
-    @JoinColumn(name = "`idCharacteristic`")
-    private MeasurementEntity _characteristic;
+    @JoinColumn(name = "`idMeasurement`")
+    private MeasurementEntity _measurement;
     @Basic
     @Column(name = "`ParticlesPerCubicCentimeter`")
     private Double _particlesPerCubicCentimeter;
@@ -23,7 +23,7 @@ public class MicroparticlesEntity {
 
     public MicroparticlesEntity(Double particlesPerCubicCentimeter, MeasurementEntity characteristic) {
         _particlesPerCubicCentimeter = particlesPerCubicCentimeter;
-        _characteristic = characteristic;
+        _measurement = characteristic;
     }
 
     @JsonIgnore
@@ -37,11 +37,11 @@ public class MicroparticlesEntity {
 
     @JsonIgnore
     public MeasurementEntity getCharacteristic() {
-        return _characteristic;
+        return _measurement;
     }
 
     public void setCharacteristic(MeasurementEntity idCharacteristic) {
-        _characteristic = idCharacteristic;
+        _measurement = idCharacteristic;
     }
 
     public Double getParticlesPerCubicCentimeter() {
@@ -57,6 +57,6 @@ public class MicroparticlesEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MicroparticlesEntity that = (MicroparticlesEntity) o;
-        return idMicroparticles == that.idMicroparticles && _characteristic == that._characteristic && Objects.equals(_particlesPerCubicCentimeter, that._particlesPerCubicCentimeter);
+        return idMicroparticles == that.idMicroparticles && _measurement == that._measurement && Objects.equals(_particlesPerCubicCentimeter, that._particlesPerCubicCentimeter);
     }
 }

@@ -13,8 +13,8 @@ public class HumidityEntity {
     @Column(name = "`idHumidity`")
     private Integer _idHumidity;
     @ManyToOne
-    @JoinColumn(name = "`idCharacteristic`")
-    private MeasurementEntity _characteristic;
+    @JoinColumn(name = "`idMeasurement`")
+    private MeasurementEntity _measurement;
     @Basic
     @Column(name = "`RelativeHumidityPercentage`")
     private double _relativeHumidityPercentage;
@@ -23,7 +23,7 @@ public class HumidityEntity {
 
     public HumidityEntity(Double particlesPerCubicCentimeter, MeasurementEntity characteristic) {
         _relativeHumidityPercentage =  particlesPerCubicCentimeter;
-        _characteristic = characteristic;
+        _measurement = characteristic;
     }
 
     @JsonIgnore
@@ -37,11 +37,11 @@ public class HumidityEntity {
 
     @JsonIgnore
     public MeasurementEntity getCharacteristic() {
-        return _characteristic;
+        return _measurement;
     }
 
     public void setCharacteristic(MeasurementEntity idSensor) {
-        _characteristic = idSensor;
+        _measurement = idSensor;
     }
 
     public double getRelativeHumidityPercentage() {
@@ -60,7 +60,7 @@ public class HumidityEntity {
         HumidityEntity that = (HumidityEntity) o;
 
         if (!Objects.equals(_idHumidity, that._idHumidity)) return false;
-        if (_characteristic != that._characteristic) return false;
+        if (_measurement != that._measurement) return false;
         return Objects.equals(_relativeHumidityPercentage, that._relativeHumidityPercentage);
     }
 }
