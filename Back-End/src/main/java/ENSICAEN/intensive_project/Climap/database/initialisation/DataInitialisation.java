@@ -2,16 +2,18 @@ package ENSICAEN.intensive_project.Climap.database.initialisation;
 
 import ENSICAEN.intensive_project.Climap.database.constructor.*;
 import ENSICAEN.intensive_project.Climap.database.entities.*;
+import ENSICAEN.intensive_project.Climap.database.json.DeviceResponseJson;
 import ENSICAEN.intensive_project.Climap.database.json.JsonParser;
 import ENSICAEN.intensive_project.Climap.database.repository.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.Random;
 
 @Configuration
 public class DataInitialisation {
-    private final String _filePath = "";
     private final JsonParser _jsonParser;
     private final static double LOWER_BOUND_LONGITUDE = -0.265388;
     private final static double UPPER_BOUND_LONGITUDE = -0.43499;
@@ -64,7 +66,7 @@ public class DataInitialisation {
         _jsonParser = jsonParser;
     }
 
-    //@TODO Remove this class in prod : we want the history of the database
+    // @TODO Remove this class in prod : we want the history of the database
     private void reset() {
         _microparticlesRepository.deleteAll();
         _brightnessRepository.deleteAll();
@@ -79,18 +81,16 @@ public class DataInitialisation {
         return lowerBound + (upperBound - lowerBound) * random.nextDouble();
     }
 
-    private static String generateRandomString(int lettersCount, int numbersCount) {
+    private static String generateSerialNumber() {
         StringBuilder randomString = new StringBuilder();
         Random random = new Random();
 
-        // Générer les lettres
-        for (int i = 0; i < lettersCount; i++) {
+        for (int i = 0; i < 3; i++) {
             char randomLetter = (char) ('A' + random.nextInt(26));
             randomString.append(randomLetter);
         }
 
-        // Générer les chiffres
-        for (int i = 0; i < numbersCount; i++) {
+        for (int i = 0; i < 7; i++) {
             int randomNumber = random.nextInt(10);
             randomString.append(randomNumber);
         }
@@ -99,31 +99,65 @@ public class DataInitialisation {
     }
 
     @Bean
-    public void init() {
+    public void init() throws IOException {
         reset();
+
         for(int i = 0; i < 25; i++) {
-            MeasurementEntity charac = _measurementBuilder
-                    .setSerialNumber(generateRandomString(3,7))
+            MeasurementEntity measurement = _measurementBuilder
+                    .setSerialNumber(generateSerialNumber())
                     .setLatitude(generateRandom(LOWER_BOUND_LATITUDE, UPPER_BOUND_LATITUDE))
                     .setLongitude(generateRandom(LOWER_BOUND_LONGITUDE, UPPER_BOUND_LONGITUDE))
                     .build().save();
 
-            _brightnessBuilder.setCharacteristic(charac)
+            _brightnessBuilder.setCharacteristic(measurement)
                     .setLux(generateRandom(LOWER_BOUND, UPPER_BOUND))
                     .build().save();
-            _heatBuilder.setCharacteristic(charac)
+            _heatBuilder.setCharacteristic(measurement)
                     .setCelsiusDegree(generateRandom(LOWER_BOUND_TEMPERATURE, UPPER_BOUND_TEMPERATURE))
                     .build().save();
-             _humidityBuilder.setCharacteristic(charac)
+             _humidityBuilder.setCharacteristic(measurement)
                     .setRelativeHumidityPercentage(generateRandom(LOWER_BOUND, UPPER_BOUND))
                     .build().save();
-            _microparticlesBuilder.setCharacteristic(charac)
+            _microparticlesBuilder.setCharacteristic(measurement)
                     .setParticlesPerCubicCentimeter(generateRandom(LOWER_BOUND, UPPER_BOUND))
                     .build().save();
-            _soundBuilder.setCharacteristic(charac)
+            _soundBuilder.setCharacteristic(measurement)
                     .setDecibel(generateRandom(LOWER_BOUND, UPPER_BOUND))
                     .build().save();
         }
 
+        String _filePath = "src/main/java/ENSICAEN/intensive_project/Climap/database/resource/Device.json";
+        List<DeviceResponseJson> deviceResponseJsonList = _jsonParser.parseJsonFile(_filePath);
+        for (DeviceResponseJson deviceResponse : deviceResponseJsonList) {
+            MeasurementEntity measurement = _measurementBuilder
+                    .setSerialNumber(generateSerialNumber())
+                    .setLatitude(deviceResponse.getLatitude())
+                    .setLongitude(deviceResponse.getLongitude())
+                    .build()
+                    .save();
+
+            _brightnessBuilder
+                    .setCharacteristic(measurement)
+                    .setLux(deviceResponse.getLux())
+                    .build()
+                    .save();
+            _heatBuilder
+                    .setCharacteristic(measurement)
+                    .setCelsiusDegree(deviceResponse.getCelsiusDegree())
+                    .build().save();
+            _humidityBuilder
+                    .setCharacteristic(measurement)
+                    .setRelativeHumidityPercentage(deviceResponse.get_relativeHumidityPercentage())
+                    .build().save();
+            _microparticlesBuilder
+                    .setCharacteristic(measurement)
+                    .setParticlesPerCubicCentimeter(deviceResponse.get_particlesPerCubicCentimeter())
+                    .build().save();
+            _soundBuilder
+                    .setCharacteristic(measurement)
+                    .setDecibel(deviceResponse.get_decibel())
+                    .build().save();
+
+        }
     }
 }

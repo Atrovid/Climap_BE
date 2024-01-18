@@ -42,10 +42,9 @@ public class SoundBuilder {
         return this;
     }
 
-    public SoundEntity save() {
-        SoundEntity save = _soundRepository.save(_sound);
+    public void save() {
+        _soundRepository.save(_sound);
         resetValues();
-        return save;
     }
 }
 

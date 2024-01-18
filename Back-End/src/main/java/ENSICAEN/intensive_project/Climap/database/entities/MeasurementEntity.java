@@ -14,7 +14,7 @@ public class MeasurementEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "`idMeasurement`")
-    private Integer _idCharacteristic;
+    private Integer _idMeasurement;
     @Basic
     @Column(name = "`SerialNumber`")
     private String _serialNumber;
@@ -28,15 +28,15 @@ public class MeasurementEntity {
     @Basic
     @Column(name = "`DateDataCapture`")
     private Timestamp _dateDataCapture;
-    @OneToMany(mappedBy = "_characteristic")
+    @OneToMany(mappedBy = "_measurement")
     private List<BrightnessEntity> _brightness;
-    @OneToMany(mappedBy = "_characteristic")
+    @OneToMany(mappedBy = "_measurement")
     private List<HeatEntity> _heat;
-    @OneToMany(mappedBy = "_characteristic")
+    @OneToMany(mappedBy = "_measurement")
     private List<HumidityEntity> _humidity;
-    @OneToMany(mappedBy = "_characteristic")
+    @OneToMany(mappedBy = "_measurement")
     private List<MicroparticlesEntity> _microparticle;
-    @OneToMany(mappedBy = "_characteristic")
+    @OneToMany(mappedBy = "_measurement")
     private List<SoundEntity> _sound;
 
     protected MeasurementEntity() {}
@@ -49,24 +49,21 @@ public class MeasurementEntity {
     }
 
     private static Timestamp generateRandomDate() {
-        // Obtenez la date et l'heure actuelles
         Calendar calendar = Calendar.getInstance();
-
-        // Soustrayez un nombre de jours aléatoire entre 0 et 365
         Random random = new Random();
         int randomDays = random.nextInt(365);
+
         calendar.add(Calendar.DAY_OF_YEAR, -randomDays);
 
-        // Créez un objet Timestamp à partir de la date obtenue
         return new Timestamp(calendar.getTimeInMillis());
     }
 
-    public int getIdCharacteristic() {
-        return _idCharacteristic;
+    public int getIdMeasurement() {
+        return _idMeasurement;
     }
 
     public void setIdCharacteristic(int idCharacteristic) {
-        _idCharacteristic = idCharacteristic;
+        _idMeasurement = idCharacteristic;
     }
 
     public double getLatitude() {
@@ -97,40 +94,40 @@ public class MeasurementEntity {
         return _brightness;
     }
 
-    public void setBrightness(List<BrightnessEntity> _brightness) {
-        _brightness = _brightness;
+    public void setBrightness(List<BrightnessEntity> brightness) {
+        _brightness = brightness;
     }
 
     public List<HeatEntity> getHeat() {
         return _heat;
     }
 
-    public void setHeat(List<HeatEntity> _heat) {
-        _heat = _heat;
+    public void setHeat(List<HeatEntity> heat) {
+        _heat = heat;
     }
 
     public List<HumidityEntity> getHumidity() {
         return _humidity;
     }
 
-    public void setHumidity(List<HumidityEntity> _humidity) {
-        _humidity = _humidity;
+    public void setHumidity(List<HumidityEntity> humidity) {
+        _humidity = humidity;
     }
 
     public List<SoundEntity> getSound() {
         return _sound;
     }
 
-    public void setSound(List<SoundEntity> _sound) {
-        _sound = _sound;
+    public void setSound(List<SoundEntity> sound) {
+        _sound = sound;
     }
 
     public List<MicroparticlesEntity> getMicroparticle() {
         return _microparticle;
     }
 
-    public void setMicroparticle(List<MicroparticlesEntity> _microparticle) {
-        _microparticle = _microparticle;
+    public void setMicroparticle(List<MicroparticlesEntity> microparticle) {
+        _microparticle = microparticle;
     }
 
     public String getSerialNumber() {
@@ -147,7 +144,7 @@ public class MeasurementEntity {
 
         MeasurementEntity that = (MeasurementEntity) o;
 
-        if (!Objects.equals(_idCharacteristic, that._idCharacteristic)) return false;
+        if (!Objects.equals(_idMeasurement, that._idMeasurement)) return false;
         if (!Objects.equals(_latitude, that._latitude)) return false;
         if (!Objects.equals(_longitude, that._longitude)) return false;
         return Objects.equals(_dateDataCapture, that._dateDataCapture);

@@ -11,10 +11,10 @@ public class MicroparticlesEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "`idMicroparticles`")
-    private int idMicroparticles;
+    private int _idMicroparticles;
     @ManyToOne
-    @JoinColumn(name = "`idCharacteristic`")
-    private MeasurementEntity _characteristic;
+    @JoinColumn(name = "`idMeasurement`")
+    private MeasurementEntity _measurement;
     @Basic
     @Column(name = "`ParticlesPerCubicCentimeter`")
     private Double _particlesPerCubicCentimeter;
@@ -23,25 +23,25 @@ public class MicroparticlesEntity {
 
     public MicroparticlesEntity(Double particlesPerCubicCentimeter, MeasurementEntity characteristic) {
         _particlesPerCubicCentimeter = particlesPerCubicCentimeter;
-        _characteristic = characteristic;
+        _measurement = characteristic;
     }
 
     @JsonIgnore
     public int getIdMicroparticles() {
-        return idMicroparticles;
+        return _idMicroparticles;
     }
 
     public void setIdMicroparticles(int idMicroparticles) {
-        idMicroparticles = idMicroparticles;
+        _idMicroparticles = idMicroparticles;
     }
 
     @JsonIgnore
     public MeasurementEntity getCharacteristic() {
-        return _characteristic;
+        return _measurement;
     }
 
     public void setCharacteristic(MeasurementEntity idCharacteristic) {
-        _characteristic = idCharacteristic;
+        _measurement = idCharacteristic;
     }
 
     public Double getParticlesPerCubicCentimeter() {
@@ -57,6 +57,6 @@ public class MicroparticlesEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MicroparticlesEntity that = (MicroparticlesEntity) o;
-        return idMicroparticles == that.idMicroparticles && _characteristic == that._characteristic && Objects.equals(_particlesPerCubicCentimeter, that._particlesPerCubicCentimeter);
+        return _idMicroparticles == that._idMicroparticles && _measurement == that._measurement && Objects.equals(_particlesPerCubicCentimeter, that._particlesPerCubicCentimeter);
     }
 }

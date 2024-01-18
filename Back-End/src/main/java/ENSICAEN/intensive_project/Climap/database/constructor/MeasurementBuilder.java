@@ -11,7 +11,7 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public class MeasurementBuilder {
     private final MeasurementRepository _characteristicRepository;
-    private MeasurementEntity _characteristic;
+    private MeasurementEntity _measurement;
     private Double _latitude;
     private Double _longitude;
     private String _serialNumber;
@@ -22,7 +22,7 @@ public class MeasurementBuilder {
     }
 
     private void resetValues() {
-        _characteristic = null;
+        _measurement = null;
         _latitude = null;
         _longitude = null;
         _serialNumber = null;
@@ -44,12 +44,12 @@ public class MeasurementBuilder {
     }
 
     public MeasurementBuilder build() {
-        _characteristic = new MeasurementEntity(_latitude, _longitude, _serialNumber);
+        _measurement = new MeasurementEntity(_latitude, _longitude, _serialNumber);
         return this;
     }
 
     public MeasurementEntity save() {
-        MeasurementEntity save = _characteristicRepository.save(_characteristic);
+        MeasurementEntity save = _characteristicRepository.save(_measurement);
         resetValues();
         return save;
     }

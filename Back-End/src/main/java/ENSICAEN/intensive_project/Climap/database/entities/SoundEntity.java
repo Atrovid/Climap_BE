@@ -13,8 +13,8 @@ public class SoundEntity {
     @Column(name = "`idSound`")
     private Integer _idSound;
     @ManyToOne
-    @JoinColumn(name = "`idCharacteristic`")
-    private MeasurementEntity _characteristic;
+    @JoinColumn(name = "`idMeasurement`")
+    private MeasurementEntity _measurement;
     @Basic
     @Column(name = "`Decibel`")
     private double _decibel;
@@ -27,7 +27,7 @@ public class SoundEntity {
 
     public SoundEntity(Double decibel, MeasurementEntity characteristic) {
         _decibel = decibel;
-        _characteristic = characteristic;
+        _measurement = characteristic;
     }
 
     @JsonIgnore
@@ -41,11 +41,11 @@ public class SoundEntity {
 
     @JsonIgnore
     public MeasurementEntity getCharacteristic() {
-        return _characteristic;
+        return _measurement;
     }
 
     public void setCharacteristic(MeasurementEntity idSensor) {
-        _characteristic = idSensor;
+        _measurement = idSensor;
     }
 
     public double getDecibel() {
@@ -64,7 +64,7 @@ public class SoundEntity {
         SoundEntity that = (SoundEntity) o;
 
         if (!Objects.equals(_idSound, that._idSound)) return false;
-        if (_characteristic != that._characteristic) return false;
+        if (_measurement != that._measurement) return false;
         return Objects.equals(_decibel, that._decibel);
     }
 }

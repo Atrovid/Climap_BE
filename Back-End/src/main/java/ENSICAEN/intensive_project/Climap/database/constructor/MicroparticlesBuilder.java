@@ -42,9 +42,8 @@ public class MicroparticlesBuilder {
         return this;
     }
 
-    public MicroparticlesEntity save() {
-        MicroparticlesEntity save = _microparticlesRepository.save(_microparticles);
+    public void save() {
+        _microparticlesRepository.save(_microparticles);
         resetValues();
-        return save;
     }
 }

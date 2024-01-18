@@ -42,10 +42,9 @@ public class BrightnessBuilder {
         return this;
     }
 
-    public BrightnessEntity save() {
-        BrightnessEntity save = _brightnessRepository.save(_brightness);
+    public void save() {
+        _brightnessRepository.save(_brightness);
         resetValues();
-        return save;
     }
 
 
