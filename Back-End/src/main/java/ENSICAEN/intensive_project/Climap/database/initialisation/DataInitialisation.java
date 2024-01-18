@@ -1,16 +1,19 @@
 package ENSICAEN.intensive_project.Climap.database.initialisation;
 
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.List;
+import java.util.Random;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
+
 import ENSICAEN.intensive_project.Climap.database.constructor.*;
-import ENSICAEN.intensive_project.Climap.database.entities.*;
+import ENSICAEN.intensive_project.Climap.database.entities.MeasurementEntity;
 import ENSICAEN.intensive_project.Climap.database.json.DeviceResponseJson;
 import ENSICAEN.intensive_project.Climap.database.json.JsonParser;
 import ENSICAEN.intensive_project.Climap.database.repository.*;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
-import java.io.IOException;
-import java.util.List;
-import java.util.Random;
 
 @Configuration
 public class DataInitialisation {
@@ -126,8 +129,8 @@ public class DataInitialisation {
                     .build().save();
         }
 
-        String _filePath = "src/main/java/ENSICAEN/intensive_project/Climap/database/resource/Device.json";
-        List<DeviceResponseJson> deviceResponseJsonList = _jsonParser.parseJsonFile(_filePath);
+        ClassPathResource deviceResource = new ClassPathResource("Device.json");
+        List<DeviceResponseJson> deviceResponseJsonList = _jsonParser.parseJson(deviceResource.getContentAsString(Charset.defaultCharset()));
         for (DeviceResponseJson deviceResponse : deviceResponseJsonList) {
             MeasurementEntity measurement = _measurementBuilder
                     .setSerialNumber(generateSerialNumber())
