@@ -11,7 +11,7 @@ public class MicroparticlesEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "`idMicroparticles`")
-    private int idMicroparticles;
+    private int _idMicroparticles;
     @ManyToOne
     @JoinColumn(name = "`idMeasurement`")
     private MeasurementEntity _measurement;
@@ -28,11 +28,11 @@ public class MicroparticlesEntity {
 
     @JsonIgnore
     public int getIdMicroparticles() {
-        return idMicroparticles;
+        return _idMicroparticles;
     }
 
     public void setIdMicroparticles(int idMicroparticles) {
-        idMicroparticles = idMicroparticles;
+        _idMicroparticles = idMicroparticles;
     }
 
     @JsonIgnore
@@ -57,6 +57,6 @@ public class MicroparticlesEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MicroparticlesEntity that = (MicroparticlesEntity) o;
-        return idMicroparticles == that.idMicroparticles && _measurement == that._measurement && Objects.equals(_particlesPerCubicCentimeter, that._particlesPerCubicCentimeter);
+        return _idMicroparticles == that._idMicroparticles && _measurement == that._measurement && Objects.equals(_particlesPerCubicCentimeter, that._particlesPerCubicCentimeter);
     }
 }

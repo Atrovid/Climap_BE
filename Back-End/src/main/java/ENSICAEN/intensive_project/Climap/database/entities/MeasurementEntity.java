@@ -97,40 +97,40 @@ public class MeasurementEntity {
         return _brightness;
     }
 
-    public void setBrightness(List<BrightnessEntity> _brightness) {
-        _brightness = _brightness;
+    public void setBrightness(List<BrightnessEntity> brightness) {
+        _brightness = brightness;
     }
 
     public List<HeatEntity> getHeat() {
         return _heat;
     }
 
-    public void setHeat(List<HeatEntity> _heat) {
-        _heat = _heat;
+    public void setHeat(List<HeatEntity> heat) {
+        _heat = heat;
     }
 
     public List<HumidityEntity> getHumidity() {
         return _humidity;
     }
 
-    public void setHumidity(List<HumidityEntity> _humidity) {
-        _humidity = _humidity;
+    public void setHumidity(List<HumidityEntity> humidity) {
+        _humidity = humidity;
     }
 
     public List<SoundEntity> getSound() {
         return _sound;
     }
 
-    public void setSound(List<SoundEntity> _sound) {
-        _sound = _sound;
+    public void setSound(List<SoundEntity> sound) {
+        _sound = sound;
     }
 
     public List<MicroparticlesEntity> getMicroparticle() {
         return _microparticle;
     }
 
-    public void setMicroparticle(List<MicroparticlesEntity> _microparticle) {
-        _microparticle = _microparticle;
+    public void setMicroparticle(List<MicroparticlesEntity> microparticle) {
+        _microparticle = microparticle;
     }
 
     public String getSerialNumber() {

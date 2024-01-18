@@ -14,7 +14,6 @@ import java.util.Random;
 
 @Configuration
 public class DataInitialisation {
-    private final String _filePath = "src/main/java/ENSICAEN/intensive_project/Climap/Device.json";
     private final JsonParser _jsonParser;
     private final static double LOWER_BOUND_LONGITUDE = -0.265388;
     private final static double UPPER_BOUND_LONGITUDE = -0.43499;
@@ -82,18 +81,16 @@ public class DataInitialisation {
         return lowerBound + (upperBound - lowerBound) * random.nextDouble();
     }
 
-    private static String generateRandomString(int lettersCount, int numbersCount) {
+    private static String generateSerialNumber() {
         StringBuilder randomString = new StringBuilder();
         Random random = new Random();
 
-        // Générer les lettres
-        for (int i = 0; i < lettersCount; i++) {
+        for (int i = 0; i < 3; i++) {
             char randomLetter = (char) ('A' + random.nextInt(26));
             randomString.append(randomLetter);
         }
 
-        // Générer les chiffres
-        for (int i = 0; i < numbersCount; i++) {
+        for (int i = 0; i < 7; i++) {
             int randomNumber = random.nextInt(10);
             randomString.append(randomNumber);
         }
@@ -106,33 +103,34 @@ public class DataInitialisation {
         reset();
 
         for(int i = 0; i < 25; i++) {
-            MeasurementEntity charac = _measurementBuilder
-                    .setSerialNumber(generateRandomString(3,7))
+            MeasurementEntity measurement = _measurementBuilder
+                    .setSerialNumber(generateSerialNumber())
                     .setLatitude(generateRandom(LOWER_BOUND_LATITUDE, UPPER_BOUND_LATITUDE))
                     .setLongitude(generateRandom(LOWER_BOUND_LONGITUDE, UPPER_BOUND_LONGITUDE))
                     .build().save();
 
-            _brightnessBuilder.setCharacteristic(charac)
+            _brightnessBuilder.setCharacteristic(measurement)
                     .setLux(generateRandom(LOWER_BOUND, UPPER_BOUND))
                     .build().save();
-            _heatBuilder.setCharacteristic(charac)
+            _heatBuilder.setCharacteristic(measurement)
                     .setCelsiusDegree(generateRandom(LOWER_BOUND_TEMPERATURE, UPPER_BOUND_TEMPERATURE))
                     .build().save();
-             _humidityBuilder.setCharacteristic(charac)
+             _humidityBuilder.setCharacteristic(measurement)
                     .setRelativeHumidityPercentage(generateRandom(LOWER_BOUND, UPPER_BOUND))
                     .build().save();
-            _microparticlesBuilder.setCharacteristic(charac)
+            _microparticlesBuilder.setCharacteristic(measurement)
                     .setParticlesPerCubicCentimeter(generateRandom(LOWER_BOUND, UPPER_BOUND))
                     .build().save();
-            _soundBuilder.setCharacteristic(charac)
+            _soundBuilder.setCharacteristic(measurement)
                     .setDecibel(generateRandom(LOWER_BOUND, UPPER_BOUND))
                     .build().save();
         }
 
+        String _filePath = "src/main/java/ENSICAEN/intensive_project/Climap/Device.json";
         List<DeviceResponseJson> deviceResponseJsonList = _jsonParser.parseJsonFile(_filePath);
         for (DeviceResponseJson deviceResponse : deviceResponseJsonList) {
             MeasurementEntity charac = _measurementBuilder
-                    .setSerialNumber(generateRandomString(3,7))
+                    .setSerialNumber(generateSerialNumber())
                     .setLatitude(deviceResponse.getLatitude())
                     .setLongitude(deviceResponse.getLongitude())
                     .build()

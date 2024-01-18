@@ -12,6 +12,7 @@ import java.util.List;
 public class JsonParser {
     public List<DeviceResponseJson> parseJsonFile(String filePath) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(new File(filePath), new TypeReference<List<DeviceResponseJson>>() {});
+        return objectMapper.readValue(new File(filePath), new TypeReference<>() {
+        });
     }
 }
