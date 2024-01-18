@@ -3,6 +3,7 @@
 ### Routes for post
 
 - localhost:8080/sensor : list of all sensor with its different sensor declination
+	- Params (optional) : minLat, maxLat, minLng, maxLng
 - localhost:8080/sensor/date : list of parsed date captured by year, month, day
 - localhost:8080/brightness : list of all brightness data in different arrays
 - localhost:8080/brightness/lux : list of all brightness data in one single array
