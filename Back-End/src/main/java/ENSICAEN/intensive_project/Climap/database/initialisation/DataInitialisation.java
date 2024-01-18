@@ -1,16 +1,19 @@
 package ENSICAEN.intensive_project.Climap.database.initialisation;
 
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.List;
+import java.util.Random;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
+
 import ENSICAEN.intensive_project.Climap.database.constructor.*;
-import ENSICAEN.intensive_project.Climap.database.entities.*;
+import ENSICAEN.intensive_project.Climap.database.entities.MeasurementEntity;
 import ENSICAEN.intensive_project.Climap.database.json.DeviceResponseJson;
 import ENSICAEN.intensive_project.Climap.database.json.JsonParser;
 import ENSICAEN.intensive_project.Climap.database.repository.*;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
-import java.io.IOException;
-import java.util.List;
-import java.util.Random;
 
 @Configuration
 public class DataInitialisation {
@@ -126,6 +129,38 @@ public class DataInitialisation {
                     .build().save();
         }
 
+        ClassPathResource deviceResource = new ClassPathResource("Device.json");
+        List<DeviceResponseJson> deviceResponseJsonList = _jsonParser.parseJson(deviceResource.getContentAsString(Charset.defaultCharset()));
+        for (DeviceResponseJson deviceResponse : deviceResponseJsonList) {
+            MeasurementEntity measurement = _measurementBuilder
+                    .setSerialNumber(generateSerialNumber())
+                    .setLatitude(deviceResponse.getLatitude())
+                    .setLongitude(deviceResponse.getLongitude())
+                    .build()
+                    .save();
 
+            _brightnessBuilder
+                    .setCharacteristic(measurement)
+                    .setLux(deviceResponse.getLux())
+                    .build()
+                    .save();
+            _heatBuilder
+                    .setCharacteristic(measurement)
+                    .setCelsiusDegree(deviceResponse.getCelsiusDegree())
+                    .build().save();
+            _humidityBuilder
+                    .setCharacteristic(measurement)
+                    .setRelativeHumidityPercentage(deviceResponse.get_relativeHumidityPercentage())
+                    .build().save();
+            _microparticlesBuilder
+                    .setCharacteristic(measurement)
+                    .setParticlesPerCubicCentimeter(deviceResponse.get_particlesPerCubicCentimeter())
+                    .build().save();
+            _soundBuilder
+                    .setCharacteristic(measurement)
+                    .setDecibel(deviceResponse.get_decibel())
+                    .build().save();
+
+        }
     }
 }

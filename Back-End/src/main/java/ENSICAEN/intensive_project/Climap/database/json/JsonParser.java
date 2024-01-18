@@ -1,18 +1,18 @@
 package ENSICAEN.intensive_project.Climap.database.json;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.stereotype.Service;
-
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @Service
 public class JsonParser {
-    public List<DeviceResponseJson> parseJsonFile(String filePath) throws IOException {
+    public List<DeviceResponseJson> parseJson(String content) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(new File(filePath), new TypeReference<>() {
+        return objectMapper.readValue(content, new TypeReference<>() {
         });
     }
 }
