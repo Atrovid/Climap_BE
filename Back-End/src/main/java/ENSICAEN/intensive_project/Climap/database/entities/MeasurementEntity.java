@@ -49,15 +49,12 @@ public class MeasurementEntity {
     }
 
     private static Timestamp generateRandomDate() {
-        // Obtenez la date et l'heure actuelles
         Calendar calendar = Calendar.getInstance();
-
-        // Soustrayez un nombre de jours aléatoire entre 0 et 365
         Random random = new Random();
         int randomDays = random.nextInt(365);
+
         calendar.add(Calendar.DAY_OF_YEAR, -randomDays);
 
-        // Créez un objet Timestamp à partir de la date obtenue
         return new Timestamp(calendar.getTimeInMillis());
     }
 

@@ -129,7 +129,7 @@ public class DataInitialisation {
         String _filePath = "src/main/java/ENSICAEN/intensive_project/Climap/database/resource/Device.json";
         List<DeviceResponseJson> deviceResponseJsonList = _jsonParser.parseJsonFile(_filePath);
         for (DeviceResponseJson deviceResponse : deviceResponseJsonList) {
-            MeasurementEntity charac = _measurementBuilder
+            MeasurementEntity measurement = _measurementBuilder
                     .setSerialNumber(generateSerialNumber())
                     .setLatitude(deviceResponse.getLatitude())
                     .setLongitude(deviceResponse.getLongitude())
@@ -137,24 +137,24 @@ public class DataInitialisation {
                     .save();
 
             _brightnessBuilder
-                    .setCharacteristic(charac)
+                    .setCharacteristic(measurement)
                     .setLux(deviceResponse.getLux())
                     .build()
                     .save();
             _heatBuilder
-                    .setCharacteristic(charac)
+                    .setCharacteristic(measurement)
                     .setCelsiusDegree(deviceResponse.getCelsiusDegree())
                     .build().save();
             _humidityBuilder
-                    .setCharacteristic(charac)
+                    .setCharacteristic(measurement)
                     .setRelativeHumidityPercentage(deviceResponse.get_relativeHumidityPercentage())
                     .build().save();
             _microparticlesBuilder
-                    .setCharacteristic(charac)
+                    .setCharacteristic(measurement)
                     .setParticlesPerCubicCentimeter(deviceResponse.get_particlesPerCubicCentimeter())
                     .build().save();
             _soundBuilder
-                    .setCharacteristic(charac)
+                    .setCharacteristic(measurement)
                     .setDecibel(deviceResponse.get_decibel())
                     .build().save();
 
