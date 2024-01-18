@@ -59,7 +59,7 @@ public class BrightnessEntity {
 
         BrightnessEntity that = (BrightnessEntity) o;
 
-        if (_idBrightness != that._idBrightness) return false;
+        if (!Objects.equals(_idBrightness, that._idBrightness)) return false;
         if (_measurement != that._measurement) return false;
         return Objects.equals(_lux, that._lux);
     }

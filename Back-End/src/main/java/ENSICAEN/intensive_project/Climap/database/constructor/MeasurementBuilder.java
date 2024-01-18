@@ -6,8 +6,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import static ENSICAEN.intensive_project.Climap.AssignValues.assignIfNotNull;
-
 @Service
 @Scope("prototype")
 @Validated
@@ -17,7 +15,6 @@ public class MeasurementBuilder {
     private Double _latitude;
     private Double _longitude;
     private String _serialNumber;
-    private Integer _id;
 
     public MeasurementBuilder(MeasurementRepository characteristicRepository) {
         _characteristicRepository = characteristicRepository;
@@ -29,15 +26,6 @@ public class MeasurementBuilder {
         _latitude = null;
         _longitude = null;
         _serialNumber = null;
-        _id = null;
-    }
-
-    public MeasurementBuilder setFromMeasurement(MeasurementEntity measurement) {
-        assignIfNotNull(measurement.getIdMeasurement(), value -> _id = (Integer) value);
-        _latitude = measurement.getLatitude();
-        _longitude = measurement.getLongitude();
-        _serialNumber = measurement.getSerialNumber();
-        return this;
     }
 
     public MeasurementBuilder setLatitude(Double latitude) {

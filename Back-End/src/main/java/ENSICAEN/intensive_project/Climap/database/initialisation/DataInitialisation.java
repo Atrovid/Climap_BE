@@ -126,7 +126,7 @@ public class DataInitialisation {
                     .build().save();
         }
 
-        String _filePath = "src/main/java/ENSICAEN/intensive_project/Climap/Device.json";
+        String _filePath = "src/main/java/ENSICAEN/intensive_project/Climap/database/resource/Device.json";
         List<DeviceResponseJson> deviceResponseJsonList = _jsonParser.parseJsonFile(_filePath);
         for (DeviceResponseJson deviceResponse : deviceResponseJsonList) {
             MeasurementEntity charac = _measurementBuilder
