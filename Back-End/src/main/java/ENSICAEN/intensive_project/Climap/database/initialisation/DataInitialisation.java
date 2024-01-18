@@ -126,38 +126,6 @@ public class DataInitialisation {
                     .build().save();
         }
 
-        String _filePath = "src/main/java/ENSICAEN/intensive_project/Climap/database/resource/Device.json";
-        List<DeviceResponseJson> deviceResponseJsonList = _jsonParser.parseJsonFile(_filePath);
-        for (DeviceResponseJson deviceResponse : deviceResponseJsonList) {
-            MeasurementEntity measurement = _measurementBuilder
-                    .setSerialNumber(generateSerialNumber())
-                    .setLatitude(deviceResponse.getLatitude())
-                    .setLongitude(deviceResponse.getLongitude())
-                    .build()
-                    .save();
 
-            _brightnessBuilder
-                    .setCharacteristic(measurement)
-                    .setLux(deviceResponse.getLux())
-                    .build()
-                    .save();
-            _heatBuilder
-                    .setCharacteristic(measurement)
-                    .setCelsiusDegree(deviceResponse.getCelsiusDegree())
-                    .build().save();
-            _humidityBuilder
-                    .setCharacteristic(measurement)
-                    .setRelativeHumidityPercentage(deviceResponse.get_relativeHumidityPercentage())
-                    .build().save();
-            _microparticlesBuilder
-                    .setCharacteristic(measurement)
-                    .setParticlesPerCubicCentimeter(deviceResponse.get_particlesPerCubicCentimeter())
-                    .build().save();
-            _soundBuilder
-                    .setCharacteristic(measurement)
-                    .setDecibel(deviceResponse.get_decibel())
-                    .build().save();
-
-        }
     }
 }
