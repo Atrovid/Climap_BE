@@ -43,9 +43,8 @@ public class HeatBuilder {
         return this;
     }
 
-    public HeatEntity save() {
-        HeatEntity save = _heatRepository.save(_heat);
+    public void save() {
+        _heatRepository.save(_heat);
         resetValues();
-        return save;
     }
 }

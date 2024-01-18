@@ -42,9 +42,8 @@ public class HumidityBuilder {
         return this;
     }
 
-    public HumidityEntity save() {
-        HumidityEntity save = _humidityRepository.save(_humidity);
+    public void save() {
+        _humidityRepository.save(_humidity);
         resetValues();
-        return save;
     }
 }
