@@ -11,48 +11,19 @@ public class DeviceResponseJson {
 
     protected DeviceResponseJson() { }
 
-
-    public void setLatitude(Double latitude) {
-        _latitude = latitude;
-    }
-
-    public void setLongitude(Double longitude) {
-        _longitude = longitude;
-    }
-
-    public void setLux(Double lux) {
-        _lux = lux;
-    }
-
-    public void setCelsiusDegree(Double celsiusDegree) {
-        _celsiusDegree = celsiusDegree;
-    }
-
-    public void setRelativeHumidityPercentage(Double relativeHumidityPercentage) {
-        _relativeHumidityPercentage = relativeHumidityPercentage;
-    }
-
-    public void setParticlesPerCubicCentimeter(Double particlesPerCubicCentimeter) {
-        _particlesPerCubicCentimeter = particlesPerCubicCentimeter;
-    }
-
-    public void setDecibel(Double decibel) {
-        _decibel = decibel;
-    }
-
-    public Double get_latitude() {
+    public Double getLatitude() {
         return _latitude;
     }
 
-    public Double get_longitude() {
+    public Double getLongitude() {
         return _longitude;
     }
 
-    public Double get_lux() {
+    public Double getLux() {
         return _lux;
     }
 
-    public Double get_celsiusDegree() {
+    public Double getCelsiusDegree() {
         return _celsiusDegree;
     }
 

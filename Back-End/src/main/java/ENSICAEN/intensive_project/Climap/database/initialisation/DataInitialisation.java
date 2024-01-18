@@ -104,7 +104,8 @@ public class DataInitialisation {
     @Bean
     public void init() throws IOException {
         reset();
-        /*for(int i = 0; i < 25; i++) {
+
+        for(int i = 0; i < 25; i++) {
             MeasurementEntity charac = _measurementBuilder
                     .setSerialNumber(generateRandomString(3,7))
                     .setLatitude(generateRandom(LOWER_BOUND_LATITUDE, UPPER_BOUND_LATITUDE))
@@ -126,24 +127,25 @@ public class DataInitialisation {
             _soundBuilder.setCharacteristic(charac)
                     .setDecibel(generateRandom(LOWER_BOUND, UPPER_BOUND))
                     .build().save();
-        }*/
+        }
+
         List<DeviceResponseJson> deviceResponseJsonList = _jsonParser.parseJsonFile(_filePath);
         for (DeviceResponseJson deviceResponse : deviceResponseJsonList) {
             MeasurementEntity charac = _measurementBuilder
                     .setSerialNumber(generateRandomString(3,7))
-                    .setLatitude(deviceResponse.get_latitude())
-                    .setLongitude(deviceResponse.get_longitude())
+                    .setLatitude(deviceResponse.getLatitude())
+                    .setLongitude(deviceResponse.getLongitude())
                     .build()
                     .save();
 
             _brightnessBuilder
                     .setCharacteristic(charac)
-                    .setLux(deviceResponse.get_lux())
+                    .setLux(deviceResponse.getLux())
                     .build()
                     .save();
             _heatBuilder
                     .setCharacteristic(charac)
-                    .setCelsiusDegree(deviceResponse.get_celsiusDegree())
+                    .setCelsiusDegree(deviceResponse.getCelsiusDegree())
                     .build().save();
             _humidityBuilder
                     .setCharacteristic(charac)
